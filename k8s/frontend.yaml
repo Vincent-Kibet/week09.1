@@ -29,7 +29,7 @@ spec:
       containers:
       - name: frontend-container
         # The image tag will be updated by CD pipeline using 
-        image: sit722acrvincent.azurecr.io/frontend:latest
+        image: sit722acrvincent.azurecr.io/frontend:placeholder
         imagePullPolicy: Always
         ports:
         - containerPort: 80
