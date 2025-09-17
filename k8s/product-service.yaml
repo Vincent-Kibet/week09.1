@@ -19,7 +19,7 @@ spec:
       containers:
       - name: product-service-container
         # This is the correct image 
-        image: sit722acrvincent.azurecr.io/product_service:latest
+        image: sit722acrvincent.azurecr.io/product_service:placeholder
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
