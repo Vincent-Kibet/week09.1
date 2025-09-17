@@ -19,7 +19,7 @@ spec:
       containers:
       - name: order-service-container
         # This is the correct image 
-        image: sit722acrvincent.azurecr.io/order_service:49813ea655c5bb33aadd72152a6b15447c3820bf
+        image: sit722acrvincent.azurecr.io/order_service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000

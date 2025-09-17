@@ -42,9 +42,14 @@ jobs:
       - name: Update deployments with new image tag
         run: |
           # ✅ FIX: Changed to match the deployment names in your Kubernetes manifests
-          kubectl set image deployment/frontend frontend-container=${{ env.ACR_LOGIN_SERVER }}/frontend:${{ env.IMAGE_TAG }}
-          kubectl set image deployment/product-service-w08e1 product-service-container=${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }}
-          kubectl set image deployment/order-service-w08e1 order-service-container=${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }}
+          kubectl set image deployment/frontend frontend-container=${{ env.ACR_LOGIN_SERVER }}/frontend:latest
+          kubectl set image deployment/product-service-w08e1 product-service-container=${{ env.ACR_LOGIN_SERVER }}/product_service:latest
+          kubectl set image deployment/order-service-w08e1 order-service-container=${{ env.ACR_LOGIN_SERVER }}/order_service:latest
+      
+      # ✅ FIX: This step ensures environment variables from the ConfigMap are applied to the frontend deployment.
+      - name: Update frontend with ConfigMap
+        run: |
+          kubectl patch deployment frontend --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/envFrom", "value": [{"configMapRef": {"name": "frontend-config"}}]}]'
       
       - name: Verify deployments
         run: |
