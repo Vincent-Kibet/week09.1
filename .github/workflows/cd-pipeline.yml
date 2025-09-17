@@ -34,11 +34,11 @@ jobs:
           resource-group: ${{ env.AKS_RESOURCE_GROUP }}
           cluster-name: ${{ env.AKS_CLUSTER_NAME }}
 
-      # ✅ FIX: This step has been removed to prevent the "ImagePullBackOff" error from placeholder tags
-      #- name: Deploy all Kubernetes manifests
-      #  run: |
-      #    kubectl apply -f k8s/
-
+      # ✅ FIX: This step has been re-added to ensure the deployment object exists.
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f k8s/ --force
+      
       - name: Update deployments with new image tag
         run: |
           # ✅ FIX: Changed to match the deployment names in your Kubernetes manifests
